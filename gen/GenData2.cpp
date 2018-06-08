@@ -23,10 +23,10 @@ const int SIM_JC_DIFF = 3;
 const int SIM_OP = 3;
 const int BASE_RANGE = 4;
 const int MOVE_EXPECTION = 10;
-const char WORD_FILE_NAME[] = "data\\gen2.word.in";
-const char DATA_FILE_NAME[] = "data\\gen2.data.in";
-const char ED_QUERY_FILE_NAME[] = "data\\gen2.ed.in";
-const char JC_QUERY_FILE_NAME[] = "data\\gen2.jc.in";
+const char WORD_FILE_NAME[] = "data/gen2.word.in";
+const char DATA_FILE_NAME[] = "data/gen2.data.in";
+const char ED_QUERY_FILE_NAME[] = "data/gen2.ed.in";
+const char JC_QUERY_FILE_NAME[] = "data/gen2.jc.in";
 const int Z = 26;
 const int ZZ = 127 - 32;
 const int HASH_BASE = 29;
@@ -41,7 +41,8 @@ std::pair < std::string, int > edQueryList[MAX_Q];
 std::pair < std::string, double > jcQueryList[MAX_Q];
 
 int randInt() {
-    return rand() << 15 | rand();
+    int t = rand() << 15 | rand();
+    return t >= 0 ? t : ~ t;
 }
 
 void genWord(std::string & word) {
@@ -200,7 +201,7 @@ void genSimLine(std::vector < int > & line, int I) {
 
 uint64 getLineHashValue(std::vector < int > & line) {
     uint64 hv = 0;
-    for (int i = 0; i < line.size(); i ++) {
+    for (int i = 0; i < (int) line.size(); i ++) {
         hv = (hv * HASH_BASE + line[i]) % HASH_MODE;
     }
     return hv;
@@ -208,7 +209,7 @@ uint64 getLineHashValue(std::vector < int > & line) {
 
 void genLineList() {
     for (int i = 0; i < N; i ++) {
-        if (i % (N / 100) == 0) {
+        if (i % (N / 10) == 0) {
             printf("genLineList:  %d / %d\n", i, N);
         }
         uint64 hv;
@@ -278,7 +279,7 @@ void genEdQuery(std::pair < std::string, int > & edQuery) {
 
 void genEdQuery() {
     for (int i = 0; i < Q; i ++) {
-        if (i % (Q / 100) == 0) {
+        if (i % (Q / 10) == 0) {
             printf("genEdQuery:  %d / %d\n", i, Q);
         }
         genEdQuery(edQueryList[i]);
@@ -370,7 +371,7 @@ void genJcQuery(std::pair < std::string, double > & jcQuery) {
 
 void genJcQuery() {
     for (int i = 0; i < Q; i ++) {
-        if (i % (Q / 100) == 0) {
+        if (i % (Q / 10) == 0) {
             printf("genJcQuery:  %d / %d\n", i, Q);
         }
         genJcQuery(jcQueryList[i]);

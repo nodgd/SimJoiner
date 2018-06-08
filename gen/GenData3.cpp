@@ -21,14 +21,14 @@ char edQueryList[MAX_N][MAX_LINE_LENGTH];
 int edQueryTh[MAX_N];
 
 void initRandom() {
-    FILE * f = fopen("data\\gen3.srand.in", "r");
+    FILE * f = fopen("data/gen3.srand.in", "r");
     int base = 0;
     if (f != NULL) {
         fscanf(f, "%d", & base);
         fclose(f);
     }
     srand(base);
-    f = fopen("data\\gen3.srand.in", "w");
+    f = fopen("data/gen3.srand.in", "w");
     fprintf(f, "%d\n", base + 1);
     fclose(f);
 }
@@ -137,7 +137,7 @@ void genLine() {
     for (int i = 0; i < N; i ++) {
         genLine(i);
     }
-    FILE * fout = fopen("data\\gen3.data.in", "w");
+    FILE * fout = fopen("data/gen3.data.in", "w");
     for (int i = 0; i < N; i ++) {
         fprintf(fout, "%s\n", lineList[i]);
     }
@@ -169,7 +169,7 @@ void genEdQuery() {
     for (int i = 0; i < Q; i ++) {
         genEdQuery(i);
     }
-    FILE * fout = fopen("data\\gen3.ed.in", "w");
+    FILE * fout = fopen("data/gen3.ed.in", "w");
     for (int i = 0; i < Q; i ++) {
         fprintf(fout, "%s\n", edQueryList[i]);
         fprintf(fout, "%d\n", edQueryTh[i]);
